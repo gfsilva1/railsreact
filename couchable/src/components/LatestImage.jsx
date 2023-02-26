@@ -3,9 +3,9 @@ import { AppContext } from '../App';
 
 
 function LatestImage() {
-    const [latestCoach, setLatestCoach] = useContext(AppContext);
+    const { latestCoach, setLatestCoach } = useContext(AppContext);
     useEffect(() => {
-        fetch("http://localhost:3000/api/v1/latest")
+        fetch("http://localhost:3000/api/v1/coaches/latest")
         .then(response => response.json())
         .then(data => {
             setLatestCoach(data.image_url);
@@ -16,7 +16,7 @@ function LatestImage() {
     
   return (
     <div>
-      <img src={latestCoach} alt="latest post" className="latest-image" />
+      <img src={latestCoach} alt="latest fotinho" className="latest-image" />
     </div>
   );
 }

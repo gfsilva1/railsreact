@@ -1,4 +1,5 @@
 class Api::V1::CoachesController < ApplicationController
+  before_action :latest
   before_action :set_coach, only: %i[ show update destroy ]
 
   # GET /coaches
@@ -16,9 +17,8 @@ class Api::V1::CoachesController < ApplicationController
   # POST /coaches
   def create
     @coach = Coach.new(coach_params)
-
     if @coach.save
-      render json: @coach, status: :created, location: @coach
+      render json: @coach, status: :created, location: api_v1_coach_url(@coach)
     else
       render json: @coach.errors, status: :unprocessable_entity
     end
@@ -44,6 +44,8 @@ class Api::V1::CoachesController < ApplicationController
   end
 
   private
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_coach
       @coach = Coach.find(params[:id])
